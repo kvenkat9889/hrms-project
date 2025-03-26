@@ -1,0 +1,275 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee card</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: consolas;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #ffffff;
+            flex-direction: column;
+        }
+        .banner {
+            background-color: #3b145b;
+            color: white;
+            text-align: center;
+            height: auto;
+            padding: 10px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            width: 98%;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .banner h1 {
+            font-size: 36px;
+            color: white;
+            font-weight: 600;
+        }
+        .banner p {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+            top: 30%;
+            max-width: 1300px;
+            padding: 20px;
+        }
+        i{
+            margin-right: 10px;
+        }
+
+        .employee-card {
+            position: relative;
+            width: 450px;
+            height: 350px;
+            margin: 40px 0;
+            padding-top: 40px;
+            transition: 0.5s;
+            border-radius: 8px;
+            background: #ffffff;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .employee-card:hover {
+            width: 900px;
+            flex-direction: row;
+        }
+
+        .employee-card .employee-image {
+            position: relative;
+            width: 100%;
+            height: 50%;
+            object-fit: cover;
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+
+        .employee-card .employee-details {
+            position: relative;
+            width: 100%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            background: linear-gradient(rgba(222, 253, 246, 0.475) 50%, rgba(186, 212, 225, 0.502) 50%);
+            color: #333;
+            transition: all 0.5s ease;
+            text-align: center;
+        }
+
+        .employee-details .name {
+            font-size: 1.4em;
+            color: #7e3900;
+            margin-bottom: 10px;
+        }
+
+        .employee-details p {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            line-height: 1.4em;
+            color: #636e72;
+        }
+
+        .employee-details a {
+            display: inline-block;
+            font-size: 1em;
+            color: #fff;
+            background: #0984e3;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 700;
+            margin-top: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        .employee-details a:hover {
+            background-color: #74b9ff;
+        }
+
+        .employee-card:hover .employee-image {
+            width: 50%;
+            height: 100%;
+            opacity: 1;
+        }
+
+        .employee-card:hover .employee-details {
+            width: 50%;
+            padding: 20px 40px;
+            background-color: #ffffff;
+            text-align: left;
+        }
+        @media (max-width: 1024px) {
+            .employee-card {
+                width: 90%;
+                height: auto;
+                flex-direction: column;
+            }
+
+            .employee-card:hover {
+                width: 100%;
+                flex-direction: column;
+            }
+
+            .employee-card .employee-image {
+                height: 40%;
+                width: 100%;
+                opacity: 1;
+            }
+
+            .employee-card:hover .employee-image {
+                height: 40%;
+                width: 100%;
+            }
+
+            .employee-card:hover .employee-details {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .employee-card {
+                width: 100%;
+                height: auto;
+                margin: 20px 0;
+            }
+
+            .employee-card .employee-details {
+                padding: 15px;
+            }
+
+            .employee-details .name {
+                font-size: 1.2em;
+            }
+
+            .employee-details a {
+                padding: 8px 15px;
+                font-size: 0.9em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .employee-card {
+                width: 95%;
+                height: auto;
+            }
+
+            .employee-details p {
+                font-size: 0.9em;
+            }
+
+            .employee-details .name {
+                font-size: 1.1em;
+            }
+
+            .employee-details a {
+                padding: 6px 12px;
+                font-size: 0.85em;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <h1>Employee's Profile Page</h1>
+        <p>Track Employee details</p>
+    </div>
+
+
+<div class="main-content">
+    <div class="employee-card">
+        <div class="employee-details">
+            <p class="name"><i class="fa-solid fa-user"></i><strong>Name: Ajay Kumar</strong></p>
+            <p><i class="fa-solid fa-id-badge"></i><strong> Employee ID:</strong> ATS0121</p>
+            <p><i class="fa-solid fa-briefcase"></i> <strong> Role:</strong> Front-end Developer</p>
+            <p><i class="fa-solid fa-person"></i><Strong>Gender:</Strong> Male</p>
+            <p><i class="fa-solid fa-cake-candles"></i> <Strong>DOB:</Strong> 08-06-2002</p>
+            <p><i class="fa-solid fa-location-dot"></i><strong>Location:</strong> Hyderabad</p>
+            <a href="./employee details.html">View Profile</a>
+        </div>
+        <div class="employee-image">
+            <img src="https://img.freepik.com/free-photo/man-with-crossed-arms_23-2147574164.jpg"  alt="Employee Image">
+        </div>
+    </div>
+
+    <div class="employee-card">
+        <div class="employee-details">
+            <p class="name"><i class="fa-solid fa-user"></i><strong>Name: Veera Raghava</strong></p>
+            <p><i class="fa-solid fa-id-badge"></i><strong> Employee ID:</strong> ATS0122</p>
+            <p><i class="fa-solid fa-briefcase"></i> <strong> Role:</strong> Front-end Developer</p>
+            <p><i class="fa-solid fa-person"></i><Strong>Gender:</Strong> Male</p>
+            <p><i class="fa-solid fa-cake-candles"></i> <Strong>DOB:</Strong> 10-09-2001</p>
+            <p><i class="fa-solid fa-location-dot"></i><strong>Location:</strong> Hyderabad</p>
+            <a href="./employee details.html">View Profile</a>
+        </div>
+        <div class="employee-image">
+            <img src="https://fekrait.com/uploads/topics/16750304198773.jpg" alt="Employee Image">
+        </div>
+    </div>
+    <div class="employee-card">
+        <div class="employee-details">
+            <p class="name"><i class="fa-solid fa-user"></i><strong>Name: Latish Singh</strong></p>
+            <p><i class="fa-solid fa-id-badge"></i><strong> Employee ID:</strong> ATS0123</p>
+            <p><i class="fa-solid fa-briefcase"></i> <strong> Role:</strong> Front-end Developer</p>
+            <p><i class="fa-solid fa-person"></i><Strong>Gender:</Strong> Male</p>
+            <p><i class="fa-solid fa-cake-candles"></i> <Strong>DOB:</Strong> 12-07-2001</p>
+            <p><i class="fa-solid fa-location-dot"></i><strong>Location:</strong> Hyderabad</p>
+            <a href="./employee details.html">View Profile</a>
+        </div>
+        <div class="employee-image">
+            <img src="https://fekrait.com/uploads/topics/16750304198773.jpg" alt="Employee Image">
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

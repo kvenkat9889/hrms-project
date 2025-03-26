@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HRMS Project Deployment</title>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    <style>
+ body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 20px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.left-box, .right-box {
+  position: relative;
+  width: 90px; /* Reduced 10% */
+  height: 90px; /* Reduced 10% */
+  display: flex;
+  align-items: center;
+  transition: transform 3s ease-in-out;
+}
+
+.item {
+  width: 45px; /* Reduced 10% */
+  height: 45px; /* Reduced 10% */
+  position: absolute;
+}
+
+.item-1 {
+  background-color: rgb(250, 87, 103);
+  top: 0;
+  left: 0;
+  z-index: 1;
+  animation: item-1_move 1.8s cubic-bezier(0.6, 0.01, 0.4, 1) infinite;
+}
+
+.item-2 {
+  background-color: rgb(121, 68, 228);
+  top: 0;
+  right: 0;
+  animation: item-2_move 1.8s cubic-bezier(0.6, 0.01, 0.4, 1) infinite;
+}
+
+.item-3 {
+  background-color: rgb(27, 145, 247);
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+  animation: item-3_move 1.8s cubic-bezier(0.6, 0.01, 0.4, 1) infinite;
+}
+
+.item-4 {
+  background-color: rgb(250, 194, 76);
+  bottom: 0;
+  left: 0;
+  animation: item-4_move 1.8s cubic-bezier(0.6, 0.01, 0.4, 1) infinite;
+}
+
+@keyframes item-1_move {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(0, 45px); /* Reduced 10% */
+  }
+  50% {
+    transform: translate(45px, 45px); /* Reduced 10% */
+  }
+  75% {
+    transform: translate(45px, 0); /* Reduced 10% */
+  }
+}
+
+@keyframes item-2_move {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-45px, 0); /* Reduced 10% */
+  }
+  50% {
+    transform: translate(-45px, 45px); /* Reduced 10% */
+  }
+  75% {
+    transform: translate(0, 45px); /* Reduced 10% */
+  }
+}
+
+@keyframes item-3_move {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(0, -45px); /* Reduced 10% */
+  }
+  50% {
+    transform: translate(-45px, -45px); /* Reduced 10% */
+  }
+  75% {
+    transform: translate(-45px, 0); /* Reduced 10% */
+  }
+}
+
+@keyframes item-4_move {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(45px, 0); /* Reduced 10% */
+  }
+  50% {
+    transform: translate(45px, -45px); /* Reduced 10% */
+  }
+  75% {
+    transform: translate(0, -45px); /* Reduced 10% */
+  }
+}
+
+.welcome-text {
+  font-size: 17px; 
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #07186c;
+  opacity: 0;
+  transition: opacity 1s ease-in-out 2s;
+  z-index: 10;
+  letter-spacing: 0;
+  text-transform: uppercase; 
+  font-variant: small-caps;
+}
+
+@keyframes reveal-text {
+  to {
+    opacity: 1;
+  }
+}
+
+.container.active .left-box {
+  transform: translateX(-135px); /* Reduced 10% */
+}
+
+.container.active .right-box {
+  transform: translateX(135px); /* Reduced 10% */
+}
+
+.container.active .welcome-text {
+  opacity: 1;
+}
+
+.container.active .welcome-text span {
+  animation-delay: calc(0.1s * var(--i));
+}
+
+.main-container {
+  display: flex;
+  flex-direction: row;
+  margin-top: 27px; /* Reduced 10% */
+  gap: 18px; /* Reduced 10% */
+}
+
+.projectcontainer {
+  display: flex;
+  flex-direction: row;
+  gap: 45px; /* Reduced 10% */
+  padding: 10px; /* Reduced 10% */
+  margin: 25px; /* Reduced 10% */
+  border-radius: 45px; /* Reduced 10% */
+}
+
+.left-container {
+  display: flex;
+  flex-direction: column;
+  gap: 27px; /* Reduced 10% */
+  width: 54%; /* Reduced 10% */
+}
+
+.right-container {
+  display: flex;
+  flex-direction: column;
+  gap: 27px; /* Reduced 10% */
+  margin-top: 45px; /* Reduced 10% */
+  align-items: center;
+  padding-top: 18px; /* Reduced 10% */
+  width: 34.2%; /* Reduced 10% */
+}
+
+.left-card {
+  width: 180px; /* Reduced 10% */
+  padding: 18px; /* Reduced 10% */
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.left-card .icon {
+  font-size: 54px; /* Reduced 10% */
+  color: #000000;
+  margin-bottom: 9px; /* Reduced 10% */
+}
+
+.left-card h2 {
+  margin: 9px 0; /* Reduced 10% */
+  font-size: 18px; /* Reduced 10% */
+  color: #333;
+}
+
+.left-card p {
+  color: #555;
+  font-size: 14.4px; /* Reduced 10% */
+}
+
+.left-card-1 {
+  background: linear-gradient(
+    rgb(255, 247, 221),
+    rgba(255, 255, 255, 0),
+    rgb(255, 221, 244)
+  );
+}
+
+.left-card-2 {
+  background: linear-gradient(
+    rgb(221, 255, 221),
+    rgba(255, 255, 255, 0),
+    rgb(244, 255, 221)
+  );
+}
+
+.left-card-3 {
+  background: linear-gradient(
+    rgba(255, 232, 195, 0.543),
+    rgba(255, 218, 218, 0.352),
+    rgb(221, 254, 255)
+  );
+}
+
+.left-card:hover {
+  transform: translateY(-9px); /* Reduced 10% */
+  box-shadow: 0 7.2px 14.4px rgba(0, 0, 0, 0.2); /* Reduced 10% */
+}
+
+.left-calendar {
+  width: 81%; /* Reduced 10% */
+  background: linear-gradient(
+    rgb(221, 221, 255),
+    rgba(255, 255, 255, 0),
+    rgb(221, 221, 255)
+  );
+  padding: 18px; /* Reduced 10% */
+  margin-left: 27px; /* Reduced 10% */
+  box-shadow: 0 3.6px 7.2px rgba(0, 0, 0, 0.1); /* Reduced 10% */
+  border-radius: 7.2px; /* Reduced 10% */
+}
+
+h2 {
+  color: #000000;
+  margin-top: 0;
+  font-size: 27.9px; /* Reduced 10% */
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#calendar {
+  display: flex;
+  flex-direction: column;
+  gap: 9px; /* Reduced 10% */
+}
+
+#calendar-controller {
+  display: flex;
+  justify-content: space-between;
+}
+
+.weekdays,
+.days-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4.5px; /* Reduced 10% */
+}
+
+.weekday,
+.day,
+.empty-day {
+  text-align: center;
+  padding: 9px; /* Reduced 10% */
+  border: 0.9px solid #ddd; /* Reduced 10% */
+  border-radius: 3.6px; /* Reduced 10% */
+}
+
+.weekday {
+  font-weight: bold;
+  background-color: #eb04f87d;
+  color: white;
+  margin-bottom: 9px; /* Reduced 10% */
+}
+
+.day {
+  color: #333;
+  background-color: #ffffff;
+  cursor: pointer;
+}
+
+.day:hover {
+  background-color: #d4edda;
+}
+
+.saturday {
+  background: linear-gradient(to bottom, #ffffff, #05cec7b5);
+}
+
+.sunday {
+  background: linear-gradient(to bottom, #ffffff, #05cec7b5);
+}
+
+.today {
+  border: 1.8px solid blue; /* Reduced 10% */
+  background-color: transparent;
+  font-weight: bold;
+}
+
+.holiday {
+  position: relative;
+}
+
+.holiday::before {
+  content: "";
+  width: 7.2px; /* Reduced 10% */
+  height: 7.2px; /* Reduced 10% */
+  background-color: red;
+  border-radius: 50%;
+  position: absolute;
+  top: 4.5px; /* Reduced 10% */
+  right: 4.5px; /* Reduced 10% */
+}
+
+.holiday:hover::after {
+  content: attr(data-holiday);
+  position: absolute;
+  top: -31.5px; /* Reduced 10% */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: black;
+  color: white;
+  padding: 4.5px; /* Reduced 10% */
+  font-size: 0.72em; /* Reduced 10% */
+  white-space: nowrap;
+  border-radius: 4.5px; /* Reduced 10% */
+  opacity: 0.9;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.control-button {
+  padding: 9px; /* Reduced 10% */
+  cursor: pointer;
+  background-color: #1a73e8;
+  color: white;
+  border: none;
+  border-radius: 4.5px; /* Reduced 10% */
+  font-size: 14.4px; /* Reduced 10% */
+  margin-bottom: 9px; /* Reduced 10% */
+}
+
+.month-year {
+  font-size: 1.35em; /* Reduced 10% */
+  font-weight: bold;
+  color: #333;
+}
+
+.empty-day {
+  background-color: transparent;
+  border: none;
+}
+
+.right-pie-chart {
+  text-align: center;
+  width: 90%; /* Reduced 10% */
+  height: 630px; /* Reduced 10% */
+}
+
+canvas {
+  max-width: 90%; /* Reduced 10% */
+  max-height: 450px; /* Reduced 10% */
+  margin: 0 auto;
+}
+
+      @media (max-width: 1200px) {
+  .projectcontainer {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .left-container, .right-container {
+    width: 90%;
+  }
+}
+
+/* For Tablets and Small Laptops */
+@media (max-width: 992px) {
+  .welcome-text{
+    font-size: 14px;
+  }
+  .container {
+    flex-direction: column;
+  }
+  .main-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .left-container, .right-container {
+    width: 100%;
+    margin: 0;
+    padding: 10px;
+  }
+}
+
+/* For Mobile Devices */
+@media (max-width: 768px) {
+  .welcome-text {
+    font-size: 12px;
+  }
+
+  .left-box, .right-box {
+    width: 80px;
+    height: 80px;
+  }
+
+  .left-container, .right-container {
+    width: 100%;
+    margin: 0;
+  }
+
+  .left-card {
+    width: 90%;
+  }
+}
+
+/* For Very Small Mobile Screens */
+@media (max-width: 450px) {
+  body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  left: 0;
+  padding: 0;
+}
+  .welcome-text {
+    font-size: 10px;
+  }
+
+  .left-box, .right-box {
+    width: 20px;
+    height: 20px;
+  }
+  .container{
+    display: flex;
+    flex-direction: row;
+  }
+
+  .left-container, .right-container {
+    width: 60%;
+    margin: 0;
+  }
+
+  .left-card {
+    width: 100%;
+  }
+
+  .container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-left: 20px;
+  margin-top: 20px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.left-box, .right-box {
+  position: relative;
+  width: 20px; /* Reduced 10% */
+  height: 20px; /* Reduced 10% */
+  display: flex;
+  
+  transition: transform 3s ease-in-out;
+}
+
+.item {
+  width: 20px; /* Reduced 10% */
+  height: 20px; /* Reduced 10% */
+  position: absolute;
+}
+.weekday,
+.day,
+.empty-day {
+  text-align: center;
+  padding: 3px; /* Reduced 10% */
+  border: 0.9px solid #ddd; /* Reduced 10% */
+  border-radius: 1px; /* Reduced 10% */
+}
+
+.weekday {
+  font-weight: bold;
+  background-color: #eb04f87d;
+  color: white;
+  margin-bottom: 3px; /* Reduced 10% */
+}
+
+
+  @keyframes item-1_move {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(0, 20px); /* Reduced 10% */
+  }
+  50% {
+    transform: translate(20px, 20px); /* Reduced 10% */
+  }
+  75% {
+    transform: translate(20px, 0); /* Reduced 10% */
+  }
+}
+
+@keyframes item-2_move {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-20px, 0); /* Reduced 10% */
+  }
+  50% {
+    transform: translate(-20px, 20px); /* Reduced 10% */
+  }
+  75% {
+    transform: translate(0, 20px); /* Reduced 10% */
+  }
+}
+
+@keyframes item-3_move {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(0, -20px); /* Reduced 10% */
+  }
+  50% {
+    transform: translate(-20px, -20px); /* Reduced 10% */
+  }
+  75% {
+    transform: translate(-20px, 0); /* Reduced 10% */
+  }
+}
+
+@keyframes item-4_move {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(20px, 0); /* Reduced 10% */
+  }
+  50% {
+    transform: translate(20px, -20px); /* Reduced 10% */
+  }
+  75% {
+    transform: translate(0, -20px); /* Reduced 10% */
+  }
+}
+
+.container.active .left-box {
+  transform: translateX(-35px); /* Reduced 10% */
+}
+
+.container.active .right-box {
+  transform: translateX(35px); /* Reduced 10% */
+}
+
+.left-calendar {
+  width: 300px; /* Reduced 10% */
+  background: linear-gradient(
+    rgb(221, 221, 255),
+    rgba(255, 255, 255, 0),
+    rgb(221, 221, 255)
+  );
+  padding: 18px; /* Reduced 10% */
+  margin-left: 27px; /* Reduced 10% */
+  box-shadow: 0 3.6px 7.2px rgba(0, 0, 0, 0.1); /* Reduced 10% */
+  border-radius: 7.2px; /* Reduced 10% */
+}
+.projectcontainer {
+  display: flex;
+  flex-direction: row;
+  width: 280px;
+  flex-wrap: wrap;
+  gap: 45px; /* Reduced 10% */
+  padding: 10px; /* Reduced 10% */
+  margin: 25px; /* Reduced 10% */
+  border-radius: 45px; /* Reduced 10% */
+}
+.right-pie-chart {
+  width: 250px; 
+  
+  margin-left: 100px;
+}
+}
+
+/* Handling Zoom (scaling elements properly) */
+@media (min-resolution: 150dpi) {
+  body {
+    zoom: 90%; /* Adjust based on testing */
+  }
+}
+
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="left-box">
+        <div class="item item-1"></div>
+        <div class="item item-2"></div>
+        <div class="item item-3"></div>
+        <div class="item item-4"></div>
+      </div>
+
+      <div class="welcome-text">
+       <h1>Welcome To ATS
+      </h1>
+      </div>
+
+      <div class="right-box">
+        <div class="item item-1"></div>
+        <div class="item item-2"></div>
+        <div class="item item-3"></div>
+        <div class="item item-4"></div>
+      </div>
+    </div>
+    <div class="main-container">
+      <div class="left-container">
+        <div class="projectcontainer">
+          <div class="left-card left-card-1">
+            <div class="icon">
+              <i class="material-icons">work_outline</i>
+            </div>
+            <h2>HRMS Deployment</h2>
+            <p>
+              <strong>Stage:</strong> Testing
+              <i class="material-icons" id="icon">trending_up</i>
+            </p>
+          </div>
+          <div class="left-card left-card-2">
+            <div class="icon">
+              <i class="material-icons">work_outline</i>
+            </div>
+            <h2>Dairy Project</h2>
+            <p>
+              <strong>Status:</strong> Developing
+              <i class="material-icons" id="icon">trending_up</i>
+            </p>
+          </div>
+          <div class="left-card left-card-3">
+            <div class="icon">
+              <i class="material-icons">work_outline</i>
+            </div>
+            <h2>Banking Project</h2>
+            <p>
+              <strong>Status:</strong> Developing
+              <i class="material-icons" id="icon">trending_up</i>
+            </p>
+          </div>
+        </div>
+
+        <div class="calendarcontainer">
+          <div class="left-calendar">
+            <div id="calendar-controls" style="display:flex ; justify-content: space-between;">
+              <i class="fa-solid fa-chevron-left control-button" onclick="changeMonth(-1)"></i>
+              <div class="month-year" id="current-month"></div>
+              <i class="fa-solid fa-chevron-right control-button" onclick="changeMonth(1)"></i>
+              
+          </div>
+            <div id="calendar"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="right-container">
+        <div class="right-pie-chart">
+          <h2>Employees</h2>
+          <canvas id="employeePieChart" width="600px" height="700px"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const currentDate = new Date();
+        let currentYear = currentDate.getFullYear();
+        let currentMonth = currentDate.getMonth();
+
+        const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+        const holidays = {
+            "1-1": "New Year",
+            "1-15": "Makar Sankranti / Pongal",
+            "2-26": "Maha Shivaratri",
+            "3-14": "Holi",
+            "4-06": "Ram Navami",
+            "4-18": "Good Friday",
+            "8-15": "Independence Day",
+            "8-16": "Krishna Janmashtami",
+            "8-27": "Ganesh Chaturthi",
+            "10-02": "Gandhi Jayanti",
+            "10-02": "Dussehra",
+            "10-21": "Diwali",
+            "12-25": "Christmas"
+        };
+
+        function generateMonth(month, year) {
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const firstDay = new Date(year, month, 1).getDay();
+            const today = new Date();
+
+            let monthHTML = `
+                <div class="month">
+                    <div class="weekdays">${weekdays.map(day => `<div class="weekday">${day}</div>`).join('')}</div>
+                    <div class="days-grid">
+                        ${'<div class="empty-day"></div>'.repeat(firstDay)}
+                        ${Array.from({ length: daysInMonth }, (_, i) => {
+                            const day = i + 1;
+                            const dayOfWeek = (firstDay + i) % 7;
+                            const isSaturday = dayOfWeek === 6;
+                            const isSunday = dayOfWeek === 0;
+                            const isToday = day === today.getDate() && month === today.getMonth() && year === today.getFullYear();
+                            const holidayKey = `${month + 1}-${day}`;
+                            const holidayName = (year === 2025) ? holidays[holidayKey] : null;
+
+                            let dayClass = '';
+                            if (isSaturday) dayClass = 'saturday';
+                            if (isSunday) dayClass = 'sunday';
+                            if (isToday) dayClass = 'today';
+                            if (holidayName) dayClass += ' holiday';
+
+                            return `<div class="day ${dayClass}" ${holidayName ? `data-holiday="${holidayName}"` : ''}>${day}</div>`;
+                        }).join('')}
+                    </div>
+                </div>
+            `;
+            return monthHTML;
+        }
+
+        function renderCalendar() {
+            document.getElementById('calendar').innerHTML = generateMonth(currentMonth, currentYear);
+            document.getElementById('current-month').textContent = new Date(currentYear, currentMonth).toLocaleString('default', { month: 'long', year: 'numeric' });
+        }
+
+        function changeMonth(direction) {
+            currentMonth += direction;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            } else if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+            renderCalendar();
+        }
+
+        renderCalendar();
+
+        const pieChartData = {
+          labels: ["Frontend", "Backend", "Cloud", "Testing", "Other"],
+          datasets: [
+            {
+              data: [25, 15, 5, 10, 10],
+              backgroundColor: [
+                "#69247C",
+                "#344CB7",
+                "#79D7BE",
+                "#F0BB78",
+                "#A294F9",
+              ],
+              borderColor: "#fff",
+              borderWidth: 1,
+            },
+          ],
+        };
+
+        const ctx = document
+          .getElementById("employeePieChart")
+          .getContext("2d");
+        const employeePieChart = new Chart(ctx, {
+          type: "bar",
+          data: pieChartData,
+          options: {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false, 
+      },
+              datalabels: {
+                display: true,
+                color: "#fff",
+                font: {
+                  weight: "bold",
+                  size: 14,
+                },
+                formatter: function (value, context) {
+                  return context.chart.data.labels[context.dataIndex];
+                },
+              },
+            },
+          },
+        });
+      
+      setTimeout(function () {
+        document.querySelector(".container").classList.add("active");
+      }, 1000);
+    </script>
+  </body>
+</html>
+

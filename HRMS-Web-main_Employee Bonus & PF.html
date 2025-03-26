@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bonus and PF Slip Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        .banner {
+    background-color: #3b145b;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    height: auto;
+    border-radius: 15px;
+    margin-bottom: 40px;
+    width: 98%;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.banner h1 {
+    font-size: 36px;
+    color: white;
+    font-weight: 600;
+}
+.banner p {
+  font-weight: 100;
+    font-size: 18px;
+    margin-top: 10px;
+}
+        .container {
+            background-color: #d8e6ff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            display: flex;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 10px;
+        }
+        .form {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 400px; 
+            height: 350px; 
+            margin: 50px auto;
+        }
+        .form h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form label {
+            display: block;
+            font-size: 19px;
+            margin: 10px 0 5px;
+        }
+        .form input {
+            padding: 10px;
+            width: 90%;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+        } 
+        .form select{
+            padding: 10px;
+            width: 96%;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+        }
+        button {
+            --color: #560bad;
+            --bg-color: #fff;
+            font-family: inherit;
+            display: inline-block;
+            width: 320px;
+            height: 2.6em;
+            line-height: 2.5em;
+            margin: 20px;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            border: 2px solid var(--color);
+            transition: color 0.5s, background 0.5s;
+            z-index: 1;
+            font-size: 17px;
+           margin-left: 40px;
+            border-radius: 6px;
+            font-weight: 500;
+            color: var(--color);
+            background-color: var(--bg-color);
+        }
+        button:before {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            background: var(--color);
+            height: 150px;
+            width: 200px;
+            border-radius: 50%;
+            transition: all 0.7s;
+        }
+        button:hover {
+            color: var(--bg-color);
+            background-color: var(--color);
+        }
+        button:before {
+            top: 100%;
+            left: 100%;
+        }
+        button:hover:before {
+            top: -30px;
+            left: -30px;
+        }
+        button:active:before {
+            background: #ffffff;
+            transition: background 0s;
+        }
+        button:active {
+            color: var(--color);
+            background-color: #ffffff;
+        }
+
+        .bonus-container, .pf-container {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            margin-bottom: 20px;
+        }
+        .container-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .container-header h3 {
+            font-weight: bold;
+            font-size: 2em;
+        }
+        .employee-details {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #dee2e6;
+            padding: 10px 0;
+            margin-bottom: 20px;
+        }
+        .details-section {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .signature {
+            margin-top: 40px;
+            text-align: right;
+            font-size: 28px;
+        }
+        .border {
+            border: 1px solid #dee2e6;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .flex-row {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .flex-column {
+            display: flex;
+            flex-direction: column;
+        }
+        .col {
+            flex: 1;
+            padding: 0 10px;
+        }
+       /* Tablets and smaller screens */
+@media screen and (max-width: 1024px) {
+    .container {
+        width: 95%;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .form {
+        width: 80%;
+        height: auto;
+    }
+
+    button {
+        width: 250px;
+    }
+}
+
+/* Mobile devices */
+@media screen and (max-width: 768px) {
+    .banner {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .banner h1 {
+        font-size: 30px;
+    }
+
+    .banner p {
+        font-size: 16px;
+    }
+
+    .container {
+        width: 100%;
+        flex-direction: column;
+        padding: 15px;
+    }
+
+    .form {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .form h2 {
+        font-size: 20px;
+    }
+
+    .form label {
+        font-size: 16px;
+    }
+
+    .form input, .form select {
+        width: 100%;
+        font-size: 14px;
+    }
+
+    button {
+        width: 220px;
+        font-size: 15px;
+    }
+
+    .bonus-container, .pf-container {
+        width: 90%;
+        padding: 15px;
+    }
+}
+
+
+@media screen and (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .banner {
+        width: 98%;
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    .banner h1 {
+        font-size: 20px;
+    }
+
+    .banner p {
+        font-size: 12px;
+    }
+    .container {
+        padding: 10px;
+    }
+
+    .form {
+        width: 95%;
+        padding: 10px;
+    }
+
+    .form h2 {
+        font-size: 18px;
+    }
+
+    .form label {
+        font-size: 14px;
+    }
+
+    .form input, .form select {
+        font-size: 12px;
+        width: 95%;
+    }
+
+    button {
+        width: 200px;
+        font-size: 14px;
+    }
+
+    .bonus-container, .pf-container {
+        width: 95%;
+        padding: 10px;
+    }
+
+    .employee-details, .details-section {
+        flex-direction: column;
+    }
+
+    .signature {
+        font-size: 20px;
+        text-align: center;
+    }
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <h1>Bonus & Provident Fund Generator</h1>
+        <p>Track and download your Provident Fund Slip & Bonus Slip</p> 
+
+    </div>
+<div class="container">
+    <div class="form">
+        <form id="bonus-form">
+            <label for="employee-name">Employee Name</label>
+            <input type="text" id="employee-name" name="employee-name" placeholder="Enter Employee Name" required  name="employee-name" required  minlength="3" maxlength="100"
+            pattern="^[A-Za-z]+(?:\.[A-Za-z]+)*(?: [A-Za-z]+)*(?:\.[A-Za-z]+){0,3}$"
+            title="Name cannot start with a space, no consecutive spaces allowed, maximum 8 spaces and 3 periods allowed.">
+
+            <label for="password">Password</label>
+            <input type="password"  id="Password" name="Password" placeholder="Enter Your Password" required   required 
+            minlength="5" 
+            maxlength="50"
+            pattern="^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[\W_]).{5,}$" 
+            title="Password must be at least 5 characters long and include at least one letter, one number, and one symbol (e.g., @, #, $, %)">
+            
+            <label for="month">Month:</label>
+            <input type="month" name="month" id="month" required>
+
+            <button type="submit">Generate Bonus and PF Slip</button>
+        </form>
+        <small class="error-message"></small>
+    </div>
+
+    <div class="pf-container" id="pf-container">
+        <div class="container-header">
+            <h3>Provident Fund (PF) Slip</h3>
+        </div>
+        <div class="employee-details">
+            <div><strong>EMP Code:</strong> 39124</div>
+            <div><strong>EMP Name:</strong> <span id="employee-name-span">Employee name</span></div>
+        </div>
+        <div class="details-section">
+            <div><strong>PF No.:</strong> 101523065714</div>
+            <div><strong>Designation:</strong> Developer</div>
+        </div>
+        <div class="details-section">
+            <div><strong>Provident Fund Amount:</strong> 1,800.00</div>
+        </div>
+        <div class="signature">
+            <div><strong>Astrolite Tech Solutions</strong></div>
+        </div>
+        <button id="download-pf-btn">Download PF Slip</button>
+
+    </div>
+
+    <div class="bonus-container" id="bonus-container">
+        <div class="container-header">
+            <h3>Bonus Slip</h3>
+            <span id="month-span">Bonus for the month of October 2024</span>
+        </div>
+        <div class="employee-details">
+            <div><strong>EMP Code:</strong> 39124</div>
+            <div><strong>EMP Name:</strong> <span id="employee-name-span-bonus">Employee name</span></div>
+        </div>
+        <div class="details-section">
+            <div><strong>Job Role:</strong> Developer</div>
+        </div>
+        <div class="details-section">
+            <div><strong>Bonus Amount:</strong> <span id="bonus-amount">0.00</span></div>
+        </div>
+        <div class="signature">
+            <div><strong>Astrolite Tech Solutions</strong></div>
+        </div>
+        <button id="download-bonus-btn">Download Bonus Slip</button>
+
+    </div>
+</div>
+
+<script>
+    document.getElementById('bonus-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+
+    var employeeName = document.getElementById('employee-name').value;
+    var month = document.getElementById('month').value;
+    var pfAmount = 1800.00;
+    var bonusAmount = (["2024-01", "2024-03", "2024-06", "2024-11"].includes(month)) ? 3000.00 : 0;
+
+    
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth(); 
+    const currentYear = currentDate.getFullYear();
+
+    
+    const selectedMonth = new Date(month + "-01");  
+    const selectedYear = selectedMonth.getFullYear();
+    const selectedMonthIndex = selectedMonth.getMonth(); 
+
+    
+    if (selectedYear > currentYear || (selectedYear === currentYear && selectedMonthIndex >= currentMonth)) {
+        alert("Invalid selection. The selected month must be in the past.");
+        return false; 
+    }
+
+
+    document.getElementById('employee-name-span').innerText = employeeName;
+    document.getElementById('employee-name-span-bonus').innerText = employeeName;
+    document.getElementById('month-span').innerText = "Bonus for the month of " + month;
+    document.getElementById('bonus-amount').innerText = bonusAmount > 0 ? bonusAmount.toFixed(2) : "No bonus credited in " + month;
+
+  
+    document.getElementById('pf-container').style.display = 'block';
+    document.getElementById('bonus-container').style.display = 'block';
+    document.querySelector('.form').style.display = 'none';
+});
+
+document.getElementById('download-pf-btn').addEventListener('click', function () {
+    var employeeName = document.getElementById('employee-name-span').innerText;
+    var pfAmount = 1800.00;  
+    var month = document.getElementById('month').value;
+    var year = new Date(month).getFullYear();  
+
+    var pfContent = `
+Provident Fund (PF) Slip
+========================
+EMP Code: 39124
+EMP Name: ${employeeName}
+Month: ${month}
+PF No.: 101523065714
+Designation: Developer
+Provident Fund Amount: 1,800.00
+----------------------------------------
+Astrolite Tech Solutions
+`;
+
+    var blob = new Blob([pfContent], { type: 'text/plain' });
+    var link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'Provident_Fund_Slip.txt';
+    link.click();
+});
+
+document.getElementById('download-bonus-btn').addEventListener('click', function () {
+    var employeeName = document.getElementById('employee-name-span-bonus').innerText;
+    var bonusAmount = document.getElementById('bonus-amount').innerText;
+    var month = document.getElementById('month').value;
+    var year = new Date(month).getFullYear();  
+
+    var bonusContent = `
+Bonus Slip
+===========
+EMP Code: 39124
+EMP Name: ${employeeName}
+Month: ${month}
+Job Role: Developer
+Bonus Amount: ${bonusAmount}
+----------------------------------------
+Astrolite Tech Solutions
+`;
+
+    
+    var blob = new Blob([bonusContent], { type: 'text/plain' });
+    var link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'Bonus_Slip.txt';
+    link.click();
+});
+
+</script>
+
+</body>
+</html>
+

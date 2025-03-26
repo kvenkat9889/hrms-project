@@ -1,0 +1,350 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Scheduling - HRMS Portal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .banner {
+            background-color: #3b145b;
+            color: white;
+            text-align: center;
+            height: auto;
+            padding: 10px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            width: 98%;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .banner h1 {
+            font-size: 36px;
+            color: white;
+            font-weight: 600;
+        }
+        .banner p {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        h2{
+            display: flex;
+            justify-content: center;
+            font-size: 30px;
+            text-decoration:underline;
+        }
+
+
+        .interview-form {
+            display: flex;
+            background:linear-gradient(rgba(224, 224, 255, 0.45), rgba(253, 240, 227, 0.61), rgba(247, 222, 255, 0.568));
+            flex-direction: column;
+            padding: 40px;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .interview-form input{
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 98%;
+        }
+        .interview-form select {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 99.5%;
+        }
+
+        .btn{
+            --color: #560bad;
+            --bg-color: #fff;
+            font-family: inherit;
+            display: inline-block;
+            width: 320px;
+            height: 2.6em;
+            line-height: 2.5em;
+            margin: 20px;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            border: 2px solid var(--color);
+            transition: color 0.5s, background 0.5s;
+            z-index: 1;
+            font-size: 17px;
+            border-radius: 6px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 500;
+            color: var(--color);
+            background-color: var(--bg-color);
+        }
+        .btn:before {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            background: var(--color);
+            height: 150px;
+            width: 200px;
+            border-radius: 50%;
+            transition: all 0.7s;
+        }
+        .btn:hover {
+            color: var(--bg-color);
+            background-color: var(--color);
+        }
+        .btn:before {
+            top: 100%;
+            left: 100%;
+        }
+        .btn:hover:before {
+            top: -30px;
+            left: -30px;
+        }
+        .btn:active:before {
+            background: #ffffff;
+            transition: background 0s;
+        }
+        .btn:active {
+            color: var(--color);
+            background-color: #ffffff;
+        }
+        .interview-schedules {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .schedule-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 20px;
+    background: linear-gradient(145deg, #e0e0e0, #ffffff);
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    width: auto;
+    height: auto;
+    background-size: 40px 40px;
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.4) 25%, transparent 25%),
+                      linear-gradient(-45deg, rgba(255, 255, 255, 0.4) 25%, transparent 25%);
+    background-position: 0 0, 20px 20px;
+    background-repeat: repeat;
+    transition: all 0.3s ease-in-out;
+    margin-bottom: 15px;
+}
+
+.schedule-card p {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    margin: 5px 0;
+}
+
+.label {
+    width: 170px;
+    text-align: left;
+    font-weight: bold;
+    color: #3b145b;
+}
+
+.colon {
+    width: 20px; 
+    text-align: center;
+}
+
+.value {
+    flex: 1; 
+    text-align: left;
+}
+
+
+.schedule-card button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 18px;
+    background-color: #238dff;
+    color: #fff;
+    text-align: center;
+    margin-top: 15px;  
+}
+
+.schedule-card:hover {
+    background: linear-gradient(145deg, #d0d0d0, #ffffff);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), inset 0 0 50px rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+
+       label{
+        font-size: 20px;
+       }
+
+        .schedule-card:hover {
+            background: linear-gradient(145deg, #d0d0d0, #ffffff);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), inset 0 0 50px rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <h1>Interviews Scheduling Page</h1>
+        <p>Schedule interviews and manage hiring process</p>
+    </div>
+    <div class="main-content">
+        <form class="interview-form" onsubmit="scheduleInterview(event)">
+            <h2>Schedule an Interview</h2>
+
+        
+                <label for="candidate-name">Candidate Name</label>    
+            <input type="text" placeholder="Candidate Name" id="candidate-name" required 
+            minlength="3" 
+            maxlength="100"
+            pattern="^[A-Za-z]+(?:\.[A-Za-z]+)*(?: [A-Za-z]+)*(?:\.[A-Za-z]+){0,3}$"
+                title="Name cannot start with a space, no consecutive spaces allowed, maximum 8 spaces and 3 periods allowed.">
+
+             <label for="candidate-email">Candidate Email</label>
+            <input type="email" placeholder="Candidate Email" id="candidate-email" required minlength="6" maxlength="40">
+
+            <label for="interview-date">Interview Date</label>
+            <input type="date" id="interview-date" required>
+
+            <label for="interview-time">Interview Time</label>
+            <select id="interview-time" required>
+                <option value="">Select Time</option>
+                <option value="9:00 AM">9:00 AM</option>
+                <option value="11:00 AM">11:00 AM</option>
+                <option value="1:00 PM">1:00 PM</option>
+                <option value="3:00 PM">3:00 PM</option>
+            </select>
+
+            <label for="interview-position">Position</label>
+            <select id="interview-position" required>
+                <option value="">Select Position</option>
+                <option value="Software Developer">Software Developer</option>
+                <option value="Project Manager">Project Manager</option>
+                <option value="Marketing Manager">Marketing Manager</option>
+            </select>
+            <button class="btn" type="submit">Schedule Interview</button>
+        </form>
+
+        <div class="interview-schedules" id="interview-schedules">
+            <div class="schedule-card">
+                <p><span class="label">Candidate Name</span> <span class="colon">:</span> <span class="value">Applicant 1</span></p>
+                <p><span class="label">Candidate Email</span> <span class="colon">:</span> <span class="value">applicant1@email.com</span></p>
+                <p><span class="label">Position</span> <span class="colon">:</span> <span class="value">Software Developer</span></p>
+                <p><span class="label">Interview Date</span> <span class="colon">:</span> <span class="value">05-10-2024</span></p>
+                <p><span class="label">Time</span> <span class="colon">:</span> <span class="value">11:00 AM</span></p>
+                <button>View Details</button>
+            </div>
+            <div class="schedule-card">
+                <p><span class="label">Candidate Name</span> <span class="colon">:</span> <span class="value">Applicant 1</span></p>
+                <p><span class="label">Candidate Email</span> <span class="colon">:</span> <span class="value">applicant1@email.com</span></p>
+                <p><span class="label">Position</span> <span class="colon">:</span> <span class="value">Software Developer</span></p>
+                <p><span class="label">Interview Date</span> <span class="colon">:</span> <span class="value">05-10-2024</span></p>
+                <p><span class="label">Time</span> <span class="colon">:</span> <span class="value">11:00 AM</span></p>
+                <button>View Details</button>
+            </div>
+            <div class="schedule-card">
+                <p><span class="label">Candidate Name</span> <span class="colon">:</span> <span class="value">Applicant 2</span></p>
+                <p><span class="label">Candidate Email</span> <span class="colon">:</span> <span class="value">applicant2@email.com</span></p>
+                <p><span class="label">Position</span> <span class="colon">:</span> <span class="value">Software Developer</span></p>
+                <p><span class="label">Interview Date</span> <span class="colon">:</span> <span class="value">07-12-2024</span></p>
+                <p><span class="label">Time</span> <span class="colon">:</span> <span class="value">11:00 AM</span></p>
+                <button>View Details</button>
+            </div>
+            <div class="schedule-card">
+                <p><span class="label">Candidate Name</span> <span class="colon">:</span> <span class="value">Applicant 3</span></p>
+                <p><span class="label">Candidate Email</span> <span class="colon">:</span> <span class="value">applicant3@email.com</span></p>
+                <p><span class="label">Position</span> <span class="colon">:</span> <span class="value">Marketing Manager</span></p>
+                <p><span class="label">Interview Date</span> <span class="colon">:</span> <span class="value">15-12-2024</span></p>
+                <p><span class="label">Time</span> <span class="colon">:</span> <span class="value">11:00 AM</span></p>
+                <button>View Details</button>
+            </div>
+          
+        </div>
+        </div>
+    </div>
+
+    <script>
+        function scheduleInterview(event) {
+    event.preventDefault();
+
+    var candidateName = document.getElementById('candidate-name').value;
+    var candidateEmail = document.getElementById('candidate-email').value;
+    var interviewDate = document.getElementById('interview-date').value;
+    var interviewTime = document.getElementById('interview-time').value;
+    var interviewPosition = document.getElementById('interview-position').value;
+
+    if (!candidateName || !candidateEmail || !interviewDate || !interviewTime || !interviewPosition) {
+        alert("Please fill out all fields correctly.");
+        return;
+    }
+
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailPattern.test(candidateEmail)) {
+        alert('Please enter a valid email address.');
+        return;
+    }
+
+    var today = new Date();
+    var interviewDateObj = new Date(interviewDate);
+
+    
+    var maxDate = new Date();
+    maxDate.setFullYear(today.getFullYear() + 1);
+
+    if (interviewDateObj <= today) {
+        alert("The interview date must be a future date.");
+        return;
+    }
+
+    if (interviewDateObj > maxDate) {
+        alert("The interview date cannot be more than 1 year from today.");
+        return;
+    }
+    var newCard = document.createElement('div');
+newCard.classList.add('schedule-card');
+
+newCard.innerHTML = `
+    <p><span class="label">Candidate Name</span> <span class="colon">:</span> <span class="value">${candidateName}</span></p>
+    <p><span class="label">Mail ID</span> <span class="colon">:</span> <span class="value">${candidateEmail}</span></p>
+    <p><span class="label">Position</span> <span class="colon">:</span> <span class="value">${interviewPosition}</span></p>
+    <p><span class="label">Interview Date</span> <span class="colon">:</span> <span class="value">${new Date(interviewDate).toLocaleDateString()}</span></p>
+    <p><span class="label">Time</span> <span class="colon">:</span> <span class="value">${interviewTime}</span></p>
+    <button>View Details</button>
+`;
+
+document.getElementById('interview-schedules').appendChild(newCard);
+
+    document.querySelector('.interview-form').reset();
+}
+
+    </script>
+    
+</body>
+</html>

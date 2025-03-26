@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimeSheet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .banner {
+    background-color: #3b145b;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    height: 120px;
+    border-radius: 15px;
+    margin-bottom: 40px;
+    width: 100%;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.banner h1 {
+    font-size: 36px;
+    color: white;
+    font-weight: 600;
+}
+
+        .container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 50px;
+            align-items: center;
+            padding: 30px;
+        }
+       
+
+        .employee-card {
+            background: linear-gradient(rgb(254, 222, 255), rgba(207, 255, 243, 0.098), rgba(255, 251, 232, 0.537), rgb(226, 226, 255));
+            width: 100%;
+            max-width: 400px;
+            padding: 25px;
+            margin: 15px 0;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .employee-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .employee-card h3 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .employee-card p {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .employee-card p strong {
+            color: #333;
+            margin-left: 5px;
+        }
+
+        .employee-card p i {
+            margin-right: 10px;
+            color: #555;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .approve-btn, .reject-btn{
+            padding: 10px 20px;
+            font-size: 14px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            width: 120px;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .confirm-btn,
+        .cancel-btn {
+            padding: 8px 16px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 5px;
+            margin: 5px 5px;
+            width: 60px;
+        }
+
+        .approve-btn,.confirm-btn{
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .approve-btn:hover, .confirm-btn:hover {
+            background-color: #45a049;
+        }
+
+        .reject-btn,.cancel-btn {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .reject-btn:hover, .cancel-btn:hover{
+            background-color: #e53935;
+        }
+        .approve-btn i, .reject-btn i {
+            margin-right: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .employee-card {
+                width: 100%;
+                max-width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <h1>Employee's Attendance Management Page</h1>
+        <p>Track and manage employee timesheet</p>
+    </div>
+    <div class="container" id="attendance-container">
+       
+    </div>
+
+    <script>
+        function createEmployeeCard(username, loginTime, logoutTime, sessionIndex) {
+            const container = document.getElementById('attendance-container');
+    
+            const card = document.createElement('div');
+            card.classList.add('employee-card');
+            card.setAttribute('data-index', sessionIndex);
+    
+            card.innerHTML = `
+                <h3>Employee: <span>${username}</span></h3>
+                <p><i class="fas fa-calendar-alt"></i><strong>Date:</strong> <span>${new Date().toLocaleDateString()}</span></p>
+                <p><i class="fas fa-sign-in-alt"></i><strong>Login Time:</strong> <span>${loginTime}</span></p>
+                <p><i class="fas fa-sign-out-alt"></i><strong>Logout Time:</strong> <span>${logoutTime}</span></p>
+                <p><i class="fas fa-briefcase"></i><strong>Work Type:</strong> <span>Remote</span></p>
+                <div class="action-buttons">
+                    <button class="approve-btn" onclick="confirmAction(${sessionIndex}, 'approve')"><i class="fas fa-check"></i>Approve</button>
+                    <button class="reject-btn" onclick="confirmAction(${sessionIndex}, 'reject')"><i class="fas fa-times"></i>Reject</button>
+                </div>
+                <div class="temporary-message" id="message-${sessionIndex}" style="display:none;"></div>
+            `;
+    
+            container.appendChild(card);
+        }
+    
+        function updateCardsWithUserData() {
+            const sessionData = JSON.parse(localStorage.getItem('sessions')) || [];
+    
+            sessionData.forEach((session, index) => {
+                createEmployeeCard(session.username, session.loginTime, session.logoutTime, index);
+            });
+        }
+    
+        function confirmAction(sessionIndex, action) {
+            const messageContainer = document.getElementById(`message-${sessionIndex}`);
+            messageContainer.innerHTML = `
+                <p>Are you sure you want to ${action} this session?</p>
+                <button class="confirm-btn" onclick="executeAction(${sessionIndex}, '${action}')">Yes</button>
+                <button class="cancel-btn" onclick="cancelAction(${sessionIndex})">No</button>
+            `;
+            messageContainer.style.display = 'block';
+        }
+    
+        function executeAction(sessionIndex, action) {
+            const sessionData = JSON.parse(localStorage.getItem('sessions')) || [];
+    
+            sessionData.splice(sessionIndex, 1);
+            localStorage.setItem('sessions', JSON.stringify(sessionData));
+    
+            const card = document.querySelector(`.employee-card[data-index="${sessionIndex}"]`);
+            const messageContainer = card.querySelector('.temporary-message');
+    
+            if (action === 'approve') {
+                messageContainer.textContent = 'Session Approved';
+                messageContainer.style.backgroundColor = '#4CAF50'; 
+            } else {
+                messageContainer.textContent = 'Session Rejected';
+                messageContainer.style.backgroundColor = '#f44336'; 
+            }
+    
+            messageContainer.style.display = 'block';
+            card.remove();
+        }
+    
+        function cancelAction(sessionIndex) {
+            const messageContainer = document.getElementById(`message-${sessionIndex}`);
+            messageContainer.style.display = 'none';
+        }
+    
+        window.onload = updateCardsWithUserData;
+    </script>
+
+    
+
+</body>
+</html>
+

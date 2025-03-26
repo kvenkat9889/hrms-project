@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payslip Generator</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&family=Lobster&family=Satisfy&family=Silkscreen:wght@400;700&family=Sixtyfour+Convergence&display=swap" rel="stylesheet">
+    <style>
+      body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.main-content {
+    display: flex;
+    padding: 32px; /* 20% decreased padding */
+    gap: 32px; /* 20% decreased gap */
+    justify-content: center;
+    margin: 0 auto;
+    max-width: 960px; /* 20% decreased max-width */
+}
+
+.banner {
+    background-color: #3b145b;
+    color: white;
+    text-align: center;
+    padding: 16px; /* 20% decreased padding */
+    height: auto;
+    padding: 6px; /* 20% decreased padding */
+    border-radius: 15px;
+    margin-bottom: 2px; /* 20% decreased margin */
+    width: 98%;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.banner h1 {
+    font-size: 28.8px; /* 20% decreased font size */
+    color: white;
+    font-weight: 600;
+}
+
+.banner p {
+    font-weight: 100;
+    font-size: 14.4px; /* 20% decreased font size */
+    margin-top: 8px; /* 20% decreased margin */
+}
+
+.payslipcontainer {
+    background-color: #fff;
+    width: 100%;
+    max-width: 400px; /* 20% decreased max-width */
+    padding-left: 48px; /* 20% decreased padding */
+    padding-right: 64px; /* 20% decreased padding */
+    padding-bottom: 32px; /* 20% decreased padding */
+    border-radius: 10px;
+   margin-left: auto;
+   margin-right: auto;
+    box-shadow: 0 0 8px rgba(244, 6, 105, 0.5), 0 0 15px rgba(7, 168, 141, 0.5), 0 0 25px rgba(17, 12, 83, 0.5);
+    text-align: center;
+}
+
+.payslipcontainer h2 {
+    font-size: 24px; /* 20% decreased font size */
+    margin-bottom: 24px; /* 20% decreased margin */
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: #580b01;
+}
+
+.input-group {
+    margin-bottom: 16px; /* 20% decreased margin */
+    text-align: left;
+}
+
+.input-group label {
+    font-size: 13.6px; /* 20% decreased font size */
+    margin-bottom: 8px; /* 20% decreased margin */
+    color: #3d3d3d;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px; /* 20% decreased padding */
+    font-size: 12.8px; /* 20% decreased font size */
+    border-radius: 5px;
+}
+
+.btn,
+.btn * {
+    border: 0 solid;
+    box-sizing: border-box;
+}
+
+.btn {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-appearance: button;
+    background-color: #000000;
+    background-image: none;
+    color: #fff;
+    cursor: pointer;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+    font-size: 80%; /* 20% decreased font size */
+    font-weight: 900;
+    line-height: 1.5;
+    margin: 0;
+
+    -webkit-mask: -webkit-radial-gradient(#000, #fff);
+    padding: 0;
+    text-transform: uppercase;
+}
+
+.btn:disabled {
+    cursor: default;
+}
+
+.btn:-moz-focusring {
+    outline: auto;
+}
+
+.btn svg {
+    display: block;
+}
+
+.btn [hidden] {
+    display: none;
+}
+
+.btn {
+    border-radius: 99rem;
+    border-width: 2px;
+    overflow: hidden;
+    padding: 0.64rem 2.4rem; /* 20% decreased padding */
+    position: relative;
+}
+
+.btn span {
+    mix-blend-mode: difference;
+}
+
+.btn:after,
+.btn:before {
+    background: linear-gradient(90deg, #fff 25%, transparent 0, transparent 50%, #fff 0, #fff 75%, transparent 0);
+    content: "";
+    inset: 0;
+    position: absolute;
+    transform: translateY(var(--progress, 100%));
+    transition: transform 0.2s ease;
+}
+
+.btn:after {
+    --progress: -100%;
+    background: linear-gradient(90deg, transparent 0, transparent 25%, #fff 0, #fff 50%, transparent 0, transparent 75%, #fff 0);
+    z-index: -1;
+}
+
+.btn:hover:after,
+.btn:hover:before {
+    --progress: 0;
+}
+
+.payslip-container {
+    width: 100%;
+    max-width: 400px; /* 20% decreased max-width */
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* 20% decreased gap */
+    display: none;
+}
+
+.card {
+    background: linear-gradient(rgba(255, 249, 238, 0.543), rgba(255, 255, 255, 0.281), rgba(236, 254, 255, 0.582));
+    border-radius: 10px;
+    padding: 12px; /* 20% decreased padding */
+    box-shadow: 0 0 8px rgba(244, 6, 105, 0.5), 0 0 15px rgba(7, 168, 141, 0.5), 0 0 25px rgba(17, 12, 83, 0.5);
+}
+
+.card h4 {
+    color: #580b01;
+    text-align: center;
+    margin-bottom: 12px; /* 20% decreased margin */
+}
+
+.payslip-details {
+    margin-bottom: 8px; /* 20% decreased margin */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.payslip-details label {
+    font-weight: bold;
+    color: #333;
+}
+
+.payslip-details p {
+    color: #555;
+    margin: 0;
+}
+
+.total {
+    font-weight: bold;
+    color: #333;
+}
+
+        @media (max-width: 768px) {
+    .main-content {
+        flex-direction: column;
+        gap: 20px;
+        padding: 15px;
+    }
+
+    .payslipcontainer {
+        max-width: 100%;
+        padding: 15px;
+    }
+
+    .input-group input {
+        padding: 10px;
+        font-size: 12px;
+    }
+
+    .card {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    .payslip-container {
+        width: 100%;
+        max-width: 100%;
+        gap: 10px;
+    }
+}
+
+
+@media (max-width: 600px) {
+    .main-content {
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .payslipcontainer {
+        padding: 15px;
+        max-width: 100%;
+    }
+
+    .card {
+        width: 100%;
+        padding: 12px;
+    }
+
+    .input-group input {
+        font-size: 12px;
+    }
+}
+@media (min-width: 1024px) {
+    .main-content {
+        justify-content: flex-start;
+    }
+    .payslipcontainer {
+        max-width: 450px;
+    }
+}
+
+/* Tablets (768px and below) */
+@media (max-width: 768px) {
+    .banner h1 {
+        font-size: 24px;
+    }
+    .banner p {
+        font-size: 13px;
+    }
+    .main-content {
+        flex-direction: column;
+        align-items: center;
+        padding: 24px;
+    }
+    .payslipcontainer {
+        width: 90%;
+        max-width: 350px;
+        padding: 24px;
+    }
+    .btn {
+        padding: 0.5rem 2rem;
+        font-size: 14px;
+    }
+}
+
+/* Mobile Screens (450px and below) */
+@media (max-width: 450px) {
+    body {
+        padding: 10px;
+    }
+    .banner {
+        width: 94%;
+        padding: 10px;
+        border-radius: 10px;
+    }
+    .banner h1 {
+        font-size: 20px;
+    }
+    .banner p {
+        font-size: 12px;
+    }
+    .main-content {
+        flex-direction: column;
+        align-items: center;
+        padding: 16px;
+        gap: 16px;
+    }
+    .payslipcontainer {
+        width: 90%;
+        padding: 20px;
+       
+    }
+    .input-group input {
+    width: 93%;
+    }
+    .btn {
+        padding: 0.4rem 1.8rem;
+        font-size: 12px;
+    }
+    .card {
+        padding: 7px;
+    }
+    .card h4 {
+        font-size: 14px;
+    }
+    .payslip-details label {
+        font-size: 12px;
+    }
+    .payslip-details p {
+        font-size: 12px;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <h1>Payslip Generator<h1>
+            <p>Track you payslip details here</p>
+    </div>
+    <div class="main-content">
+        <div class="payslipcontainer">
+            <h2>Payslip Generator</h2>
+            <form id="payslipForm" onsubmit="return generatePayslip()">
+                <div class="input-group">
+                    <label for="employeeName">Employee Name (Required)</label>
+                    <input 
+                        id="employeeName" 
+                        type="text" 
+                        placeholder="Enter your Name" 
+                        required 
+                        minlength="3" 
+                        maxlength="50"
+                        pattern="^[A-Za-z]+(?:\.[A-Za-z]+)*(?: [A-Za-z]+)*(?:\.[A-Za-z]+){0,3}$"
+                        title="Username cannot start with a space, no consecutive spaces allowed, maximum 8 spaces and 3 periods allowed.">
+                </div>
+
+                <div class="input-group">
+                    <label for="employeeID">Employee Id (Required)</label>
+                    <input 
+                        id="employeeId" 
+                        type="text" 
+                        placeholder="Enter your EmployeeID" 
+                        required 
+                        minlength="7" 
+                        maxlength="7" 
+                        pattern="^[A-Z]{3}(?!0000)[0-9]{4}$" 
+                        title="Employee ID should be in the format: 3 uppercase letters followed by 4 digits, starting from 0001 (cannot be 0000)">
+                </div>
+                
+                  
+                
+                <div class="input-group">
+                    <label for="email">Email Address (Required)</label>
+                    <input 
+                        id="email" 
+                        type="email" 
+                        placeholder="Enter your Email ID" 
+                        required  
+                        minlength="8"
+                        maxlength="50"
+                        title="Please enter a valid email address">
+                </div>
+                
+                <div class="input-group">
+                    <label for="password">Password (Required)</label>
+                    <input 
+                        id="password" 
+                        type="password" 
+                        placeholder="Enter your password (min 1 letter, 1 number, 1 symbol)" 
+                        required 
+                        minlength="5" 
+                        maxlength="50"
+                        pattern="^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[\W_]).{5,}$" 
+                        title="Password must be at least 5 characters long and include at least one letter, one number, and one symbol (e.g., @, #, $, %)">
+                </div>
+                
+                
+                <div class="input-group">
+                    <label for="startMonth">Select Start Month (Required):</label>
+                    <input 
+                        type="month" 
+                        id="startMonth" 
+                        name="startMonth" 
+                        placeholder="Select start month" 
+                        required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="endMonth">Select End Month (optional):</label>
+                    <input 
+                        type="month" 
+                        id="endMonth" 
+                        name="endMonth" 
+                        placeholder="Select end month">
+                </div>
+                
+    
+                <button type="submit" class="btn"><span>Generate Payslip</span></button>
+            </form>
+        </div>
+
+        <div class="payslip-container" id="payslipContainer">
+            <div class="card">
+                <h4>Employee Details & Net Pay</h4>
+                <div class="payslip-details">
+                    <label for="employeeNameDisplay">Employee:</label>
+                    <p id="employeeNameDisplay">Employee Name</p>
+                </div>
+                <div class="payslip-details">
+                    <label for="employeeId">Employee ID:</label>
+                    <p id="employeeIdDisplay">Employee ID:</p>
+                </div>
+                <div class="payslip-details">
+                    <label for="department">Department:</label>
+                    <p>Software Developer</p>
+                </div>
+                <div class="payslip-details">
+                    <label for="payPeriod">Pay Period:</label>
+                    <p id="payPeriod">Oct 2024</p>
+                </div>
+                <div class="payslip-details total">
+                    <label for="netPay">Net Pay:</label>
+                    <p id="netPay">₹24,528.00</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h4>Earnings</h4>
+                <div class="payslip-details">
+                    <label for="basicSalary">Basic Salary:</label>
+                    <p>₹16,250.00</p>
+                </div>
+                <div class="payslip-details">
+                    <label for="dearnessAllowance">Dearness Allowance:</label>
+                    <p>₹550.00</p>
+                </div>
+                <div class="payslip-details">
+                    <label for="houseRentAllowance">House Rent Allowance:</label>
+                    <p>₹1,650.00</p>
+                </div>
+                <div class="payslip-details">
+                    <label for="wageAllowance">Wage Allowance:</label>
+                    <p>₹120.00</p>
+                </div>
+                <div class="payslip-details">
+                    <label for="medicalAllowance">Medical Allowance:</label>
+                    <p>₹3,000.00</p>
+                </div>
+                <div class="payslip-details total">
+                    <label>Total Earnings:</label>
+                    <p>₹21,670.00</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h4>Deductions</h4>
+                <div class="payslip-details">
+                    <label for="providentFund">Provident Fund:</label>
+                    <p>₹1,800.00</p>
+                </div>
+                <div class="payslip-details">
+                    <label for="employeeStateInsurance">Employee State Insurance:</label>
+                    <p>₹142.00</p>
+                </div>
+                <div class="payslip-details">
+                    <label for="taxDeductedAtSource">Tax Deducted at Source:</label>
+                    <p>₹0.00</p>
+                </div>
+                <div class="payslip-details">
+                    <label for="leaveWithoutPay">Leave Without Pay:</label>
+                    <p>₹0.00</p>
+                </div>
+                <div class="payslip-details">
+                    <label for="specialDeduction">Special Deduction:</label>
+                    <p>₹500.00</p>
+                </div>
+                <div class="payslip-details total">
+                    <label>Total Deductions:</label>
+                    <p>₹2,442.00</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function generatePayslip() {
+    const employeeName = document.getElementById('employeeName').value;
+    const startMonth = document.getElementById('startMonth').value;
+    const endMonth = document.getElementById('endMonth').value;
+    const email = document.getElementById('email').value;
+    const employeeId = document.getElementById('employeeId').value;
+
+
+    
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!emailPattern.test(email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+   
+            
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth();
+
+    
+    const startMonthDate = new Date(`${startMonth}-01`); 
+    if (isNaN(startMonthDate)) {
+        alert("Invalid start month format.");
+        return false;
+    }
+
+    const startYear = startMonthDate.getFullYear();
+    const startMonthNum = startMonthDate.getMonth();
+
+    let endMonthDate = null;
+    let endYear = null;
+    let endMonthNum = null;
+    if (endMonth) {
+        endMonthDate = new Date(`${endMonth}-01`); 
+        if (isNaN(endMonthDate)) {
+            alert("Invalid end month format.");
+            return false;
+        }
+        endYear = endMonthDate.getFullYear();
+        endMonthNum = endMonthDate.getMonth();
+    }
+
+    
+    if (startYear > currentYear || (startYear === currentYear && startMonthNum > currentMonth)) {
+        alert("Start month cannot be this month or in the future.");
+        return false;
+    }
+
+    if (endMonth && (endYear > currentYear || (endYear === currentYear && endMonthNum > currentMonth))) {
+        alert("End month cannot be this month or in the future.");
+        return false;
+    }
+
+   
+    if (endMonth && (endYear < startYear || (endYear === startYear && endMonthNum <= startMonthNum))) {
+        alert("End month must be greater than the start month.");
+        return false;
+    }
+
+  
+    if (startYear <= 2021) {
+        alert("Invalid start month. It must be after 2021.");
+        return false;
+    }
+
+    if (endMonth && endYear <= 2021) {
+        alert("Invalid end month. It must be after 2021.");
+        return false;
+    }
+
+
+    document.getElementById('employeeNameDisplay').textContent = employeeName;
+    document.getElementById('employeeIdDisplay').textContent = employeeId;
+
+    const startMonthName = startMonthDate.toLocaleString('default', { month: 'long', year: 'numeric' });
+    const endMonthName = endMonth ? endMonthDate.toLocaleString('default', { month: 'long', year: 'numeric' }) : startMonthName;
+
+
+    document.getElementById('payPeriod').textContent = `${startMonthName} - ${endMonthName}`;
+
+  
+    document.getElementById('payslipContainer').style.display = 'flex';
+
+    return false;
+}
+
+    </script>
+</body>
+</html>
